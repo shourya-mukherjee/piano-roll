@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@react-hook/resize-observer": "^2.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-piano": "^3.1.1",
     "react-scripts": "^5.0.1",
+    "smplr": "^0.16.3",
     "tone": "^14.7.77"
   },
   "devDependencies": {
