@@ -1,0 +1,17 @@
+# Dependency directories
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Environment variables
+.env
+
+# OS junk files
+.DS_Store
+
+# Build output
+dist/
+build/
