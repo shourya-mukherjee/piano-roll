@@ -4,7 +4,8 @@ import { Piano, KeyboardShortcuts, MidiNumbers } from 'react-piano';
 import useResizeObserver from '@react-hook/resize-observer';
 import 'react-piano/dist/styles.css';
 
-import SoundfontProvider from './SoundfontProvider';
+import SoundfontProvider from './components/SoundfontProvider';
+import PianoRoll from './components/PianoRoll';
 import './styles.css';
 import { getSoundfontNames } from 'smplr';
 
@@ -90,6 +91,12 @@ function ResponsivePiano(props) {
     selectRef.current?.blur();
   };
 
+  const dispatchNoteEvent = (type, midiNumber) => {
+    window.dispatchEvent(new CustomEvent(type, { 
+      detail: { midiNumber } 
+    }));
+  };
+
   return (
     <div ref={target}>
       <div style={{ marginBottom: '20px' }}>
@@ -114,17 +121,32 @@ function ResponsivePiano(props) {
       <SoundfontProvider
         instrumentName={selectedInstrument}
         audioContext={audioContext}
-        // hostname={soundfontHostname}
         render={({ isLoading, playNote, stopNote }) => (
-          <Piano
-            noteRange={noteRange}
-            width={size.width}
-            playNote={playNote}
-            stopNote={stopNote}
-            disabled={isLoading}
-            keyboardShortcuts={keyboardShortcuts}
-            {...props}
-          />
+          <div>
+            <PianoRoll
+              noteRange={noteRange}
+              width={size.width}
+              height={1000}
+              onPlayNote={playNote}
+              onStopNote={stopNote}
+            />
+            <Piano
+              keyWidthToHeight={0.6}
+              noteRange={noteRange}
+              width={size.width}
+              playNote={(midiNumber) => {
+                playNote(midiNumber);
+                dispatchNoteEvent('pianoNoteOn', midiNumber);
+              }}
+              stopNote={(midiNumber) => {
+                stopNote(midiNumber);
+                dispatchNoteEvent('pianoNoteOff', midiNumber);
+              }}
+              disabled={isLoading}
+              keyboardShortcuts={keyboardShortcuts}
+              {...props}
+            />
+          </div>
         )}
       />
     </div>
