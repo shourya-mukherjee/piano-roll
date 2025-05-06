@@ -15,3 +15,7 @@ npm-debug.log*
 # Build output
 dist/
 build/
+
+ref/
+
+PianoRoll.jsx
