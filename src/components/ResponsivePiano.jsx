@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Piano, KeyboardShortcuts, MidiNumbers } from 'react-piano';
+import { Piano } from 'react-piano';
 import 'react-piano/dist/styles.css';
 import SoundfontProvider from './SoundfontProvider';
 import './styles.css';
@@ -9,15 +9,15 @@ import { useSize }from '../hooks/useSize';
 const audioContext = new window.AudioContext();
 // const soundfontHostname = 'https://d1pzp51pvbm36p.cloudfront.net';
 
-const noteRange = {
-  first: MidiNumbers.fromNote('c3'),
-  last: MidiNumbers.fromNote('f4'),
-};
-const keyboardShortcuts = KeyboardShortcuts.create({
-  firstNote: noteRange.first,
-  lastNote: noteRange.last,
-  keyboardConfig: KeyboardShortcuts.HOME_ROW,
-});
+// const noteRange = {
+//   first: MidiNumbers.fromNote('c3'),
+//   last: MidiNumbers.fromNote('f4'),
+// };
+// const keyboardShortcuts = KeyboardShortcuts.create({
+//   firstNote: noteRange.first,
+//   lastNote: noteRange.last,
+//   keyboardConfig: KeyboardShortcuts.HOME_ROW,
+// });
 
 // function BasicPiano() {
 //     return (
@@ -79,12 +79,12 @@ const keyboardShortcuts = KeyboardShortcuts.create({
           // hostname={soundfontHostname}
           render={({ isLoading, playNote, stopNote }) => (
             <Piano
-              noteRange={noteRange}
+              noteRange={props.noteRange}
               width={size.width}
               playNote={playNote}
               stopNote={stopNote}
               disabled={isLoading}
-              keyboardShortcuts={keyboardShortcuts}
+              keyboardShortcuts={props.keyboardShortcuts}
               {...props}
             />
           )}
@@ -92,3 +92,5 @@ const keyboardShortcuts = KeyboardShortcuts.create({
       </div>
     );
   }
+
+  export { ResponsivePiano };
